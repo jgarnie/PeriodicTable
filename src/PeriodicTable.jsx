@@ -4,12 +4,11 @@ import { BOTTOM, LEFT_SIDE, RIGHT_SIDE } from './const';
 import { useAtomicContext } from './context/ElementContext';
 import styled from 'styled-components';
 
-const PeriodicTableWrapper = styled.div`
+const StyledPeriodicTable = styled.div`
   display: grid;
   padding: 20px;
   gap: 15px;
-  overflow: auto;
-
+  overflow: scroll;
   grid-template-areas:
     'side side main main main main'
     'side side main main main main'
@@ -19,6 +18,38 @@ const PeriodicTableWrapper = styled.div`
     'side side main main main main'
     'side side main main main main'
     '. . below below below below';
+  width: fit-content;
+`;
+
+const StyledLeftGroup = styled.div`
+  grid-area: side;
+  display: flex;
+  flex-direction: row;
+`;
+const StyledLeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const StyledRigthGroup = styled.div`
+  grid-area: main;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StyledRightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const StyledBottomGroup = styled.div`
+  grid-area: below;
+`;
+const StyledBottomRow = styled.div`
+  display: flex;
+  justify-content: flex-start;
 `;
 
 const PeriodicTable = () => {
@@ -40,10 +71,10 @@ const PeriodicTable = () => {
 
   return (
     <>
-      <PeriodicTableWrapper>
-        <div className="left-group">
+      <StyledPeriodicTable>
+        <StyledLeftGroup>
           {LEFT_SIDE.map((elCol, index) => (
-            <div key={index} className="left-column">
+            <StyledLeftColumn>
               {elCol.map((element) => (
                 <button
                   key={element.number}
@@ -53,13 +84,13 @@ const PeriodicTable = () => {
                   {element.symbol}
                 </button>
               ))}
-            </div>
+            </StyledLeftColumn>
           ))}
-        </div>
+        </StyledLeftGroup>
 
-        <div className="right-group">
+        <StyledRigthGroup>
           {RIGHT_SIDE.map((elColRight, index) => (
-            <div key={index} className="right-column">
+            <StyledRightColumn>
               {elColRight.map((element) => (
                 <button
                   key={element.number}
@@ -69,13 +100,13 @@ const PeriodicTable = () => {
                   {element.symbol}
                 </button>
               ))}
-            </div>
+            </StyledRightColumn>
           ))}
-        </div>
+        </StyledRigthGroup>
 
-        <div className="bottom-group">
+        <StyledBottomGroup>
           {BOTTOM.map((elCol, index) => (
-            <div key={index} className="bottom-row">
+            <StyledBottomRow>
               {elCol.map((element) => (
                 <button
                   key={element.number}
@@ -85,10 +116,10 @@ const PeriodicTable = () => {
                   {element.symbol}
                 </button>
               ))}
-            </div>
+            </StyledBottomRow>
           ))}
-        </div>
-      </PeriodicTableWrapper>
+        </StyledBottomGroup>
+      </StyledPeriodicTable>
     </>
   );
 };
