@@ -21,7 +21,7 @@ const PeriodicTable = () => {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="periodic-table">
         <div className="left-group">
           {LEFT_SIDE.map((elCol, index) => (
@@ -71,7 +71,7 @@ const PeriodicTable = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

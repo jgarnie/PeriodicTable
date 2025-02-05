@@ -3,6 +3,7 @@
   padding: 20px;
   gap: 15px;
   overflow: auto;
+
   grid-template-areas:
     'side side side main main main main main main main main main main main main main main main'
     'side side side main main main main main main main main main main main main main main main'
@@ -12,11 +13,6 @@
     'side side side main main main main main main main main main main main main main main main'
     'side side side main main main main main main main main main main main main main main main'
     '. . . below below below below below below below below below below below below below below below';
-}
-@media (min-width: 769px) {
-  .periodic-table {
-    grid-template-columns: repeat(18, 1fr);
-  }
 }
 
 .left-group {
