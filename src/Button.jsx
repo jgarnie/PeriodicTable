@@ -10,6 +10,7 @@ const StyledButton = styled.div`
   box-shadow: 1px 0 0 0 #fff, 0 1px 0 0 #fff, 1px 1px 0 0 #fff,
     1px 0 0 0 #fff inset, 0 1px 0 0 #fff inset;
   transition: transform 0.2s ease-in-out;
+
   &:hover {
     transform: scale(1.5);
   }
@@ -17,6 +18,7 @@ const StyledButton = styled.div`
     overflow: visible;
     text-overflow: clip;
   }
+  cursor: pointer;
 `;
 
 const StyledButtonText = styled.div`

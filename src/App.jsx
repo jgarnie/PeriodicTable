@@ -1,6 +1,5 @@
 import React from 'react';
 import { AtomicProvider } from './context/ElementContext';
-import Atom from './Atom';
 import PeriodicTable from './PeriodicTable';
 import styled from 'styled-components';
 import AtomCard from './AtomCard';
@@ -12,6 +11,8 @@ const StyledMainWrapper = styled.div`
   margin-top: 10px;
   flex-direction: column;
   justify-content: space-evenly;
+  height: 100vh;
+  align-items: flex-start;
   @media (min-width: 1100px) {
     flex-direction: row;
   }

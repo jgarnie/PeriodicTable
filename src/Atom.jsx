@@ -12,14 +12,14 @@ const Nucleus = ({ protons, neutrons }) => {
   for (let i = 0; i < protons; i++) {
     particles.push({
       position: [Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5],
-      color: 'red',
+      color: '#FF4500',
     });
   }
 
   for (let i = 0; i < neutrons; i++) {
     particles.push({
       position: [Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5],
-      color: 'blue',
+      color: '#708090',
     });
   }
 
@@ -62,7 +62,7 @@ const Atom = () => {
 
   return (
     <StyledCanvas>
-      <Canvas camera={{ position: [0, 2, 5], fov: 60 }}>
+      <Canvas camera={{ position: [0, 2, 5], fov: 55 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[5, 5, 5]} intensity={1.5} />
         <OrbitControls />
@@ -73,10 +73,10 @@ const Atom = () => {
           <Electron
             key={index}
             index={index}
-            radius={1 + Math.random()}
+            radius={1 + Math.random() / 2}
             speed={1 + (index % Math.random()) * 0.5}
             angle={index * 10}
-            color="yellow"
+            color="#ffff00"
           />
         ))}
       </Canvas>
@@ -88,5 +88,5 @@ export default Atom;
 
 const StyledCanvas = styled.div`
   height: 100%;
-  min-width: 50vh;
+  width: 100%;
 `;

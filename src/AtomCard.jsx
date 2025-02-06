@@ -10,6 +10,7 @@ const StyledCardWrapper = styled.div`
   border: 1px solid grey;
   box-shadow: 1px 1px 1px 1px grey;
   width: 25%;
+  height: 80vh;
 `;
 
 const StyledHeader = styled.div`

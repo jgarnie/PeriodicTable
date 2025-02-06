@@ -1,31 +1,61 @@
 /* 🔹 Category Colors */
+
+/* Nonmetal */
 .nonmetal {
-  background-color: #4fc3f7;
-} /* Light Blue */
+  background-color: rgb(79, 195, 247); /* Light Blue with opacity */
+  color: #0277bd; /* Darker Blue */
+}
+
+/* Noble Gas */
 .noble-gas {
-  background-color: #ff4081;
-} /* Pink */
+  background-color: rgb(255, 64, 129); /* Pink with opacity */
+  color: #c2185b; /* Darker Pink */
+}
+
+/* Alkali Metal */
 .alkali-metal {
-  background-color: #ffab00;
-} /* Orange */
+  background-color: rgb(255, 171, 0); /* Orange with opacity */
+  color: #e65100; /* Darker Orange */
+}
+
+/* Alkaline Earth Metal */
 .alkaline-earth-metal {
-  background-color: #ffd600;
-} /* Yellow */
+  background-color: rgb(255, 214, 0); /* Yellow with opacity */
+  color: #f57f17; /* Darker Yellow */
+}
+
+/* Metalloid */
 .metalloid {
-  background-color: #8e24aa;
-} /* Purple */
+  background-color: rgb(142, 36, 170); /* Purple with opacity */
+  color: #4a148c; /* Darker Purple */
+}
+
+/* Transition Metal */
 .transition-metal {
-  background-color: #90a4ae;
-} /* Grey */
+  background-color: rgb(144, 164, 174); /* Grey with opacity */
+  color: #455a64; /* Darker Grey */
+}
+
+/* Post-Transition Metal */
 .post-transition-metal {
-  background-color: #607d8b;
-} /* Darker Grey */
+  background-color: rgb(96, 125, 139); /* Darker Grey with opacity */
+  color: #263238; /* Even Darker Grey */
+}
+
+/* Halogen */
 .halogen {
-  background-color: #00e676;
-} /* Green */
+  background-color: rgb(0, 230, 118); /* Green with opacity */
+  color: #007d3a; /* Darker Green */
+}
+
+/* Lanthanide */
 .lanthanide {
-  background-color: #ff6e40;
-} /* Red-Orange */
+  background-color: rgb(255, 110, 64); /* Red-Orange with opacity */
+  color: #bf360c; /* Darker Red-Orange */
+}
+
+/* Actinide */
 .actinide {
-  background-color: #d50000;
-} /* Deep Red */
+  background-color: rgb(213, 0, 0); /* Deep Red with opacity */
+  color: #7f0000; /* Darker Deep Red */
+}

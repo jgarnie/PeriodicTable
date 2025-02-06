@@ -5,14 +5,14 @@ const StyledPlaceholderWrapper = styled.div`
   width: 100%;
   height: 100%;
   text-align: center;
-  padding: 40px 5px;
+  padding: 40px 2px;
 `;
 const AtomPlaceholder = () => {
   return (
     <StyledPlaceholderWrapper>
       <svg
-        width="60px"
-        height="60px"
+        width="200px"
+        height="200px"
         viewBox="0 0 64 64"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
