@@ -56,30 +56,30 @@ const PeriodicTable = () => {
   return (
     <StyledPeriodicTable>
       <StyledLeftGroup>
-        {LEFT_SIDE.map((elCol) => (
-          <StyledLeftColumn>
+        {LEFT_SIDE.map((elCol, index) => (
+          <StyledLeftColumn key={`${index}'left'`}>
             {elCol.map((element) => (
-              <Button atomData={element} />
+              <Button key={element.symbol} atomData={element} />
             ))}
           </StyledLeftColumn>
         ))}
       </StyledLeftGroup>
 
       <StyledRigthGroup>
-        {RIGHT_SIDE.map((elColRight) => (
-          <StyledRightColumn>
+        {RIGHT_SIDE.map((elColRight, index) => (
+          <StyledRightColumn key={`${index}'right'`}>
             {elColRight.map((element) => (
-              <Button atomData={element} />
+              <Button key={element.symbol} atomData={element} />
             ))}
           </StyledRightColumn>
         ))}
       </StyledRigthGroup>
 
       <StyledBottomGroup>
-        {BOTTOM.map((elCol) => (
-          <StyledBottomRow>
+        {BOTTOM.map((elCol, index) => (
+          <StyledBottomRow key={`${index}'bottom'`}>
             {elCol.map((element) => (
-              <Button atomData={element} />
+              <Button key={element.symbol} atomData={element} />
             ))}
           </StyledBottomRow>
         ))}
