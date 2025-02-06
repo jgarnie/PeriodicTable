@@ -3,12 +3,12 @@ import './PeriodicTable.css';
 import { BOTTOM, LEFT_SIDE, RIGHT_SIDE } from './const';
 import { useAtomicContext } from './context/ElementContext';
 import styled from 'styled-components';
+import Button from './Button';
 
 const StyledPeriodicTable = styled.div`
   display: grid;
-  padding: 20px;
   gap: 15px;
-  overflow: scroll;
+  overflow: visible;
   grid-template-areas:
     'side side main main main main'
     'side side main main main main'
@@ -53,74 +53,38 @@ const StyledBottomRow = styled.div`
 `;
 
 const PeriodicTable = () => {
-  const { atom, setAtom } = useAtomicContext();
-
-  const handleSelectedElement = (element) => {
-    const protons = element.number;
-    const neutrons = Math.round(element.atomic_mass) - element.number;
-    const electrons = element.number;
-    const particleInfo = {
-      protons,
-      neutrons,
-      electrons,
-    };
-    setAtom({ ...element, ...particleInfo });
-
-    return;
-  };
-
   return (
-    <>
-      <StyledPeriodicTable>
-        <StyledLeftGroup>
-          {LEFT_SIDE.map((elCol, index) => (
-            <StyledLeftColumn>
-              {elCol.map((element) => (
-                <button
-                  key={element.number}
-                  className={element.category}
-                  onClick={() => handleSelectedElement(element)}
-                >
-                  {element.symbol}
-                </button>
-              ))}
-            </StyledLeftColumn>
-          ))}
-        </StyledLeftGroup>
+    <StyledPeriodicTable>
+      <StyledLeftGroup>
+        {LEFT_SIDE.map((elCol) => (
+          <StyledLeftColumn>
+            {elCol.map((element) => (
+              <Button atomData={element} />
+            ))}
+          </StyledLeftColumn>
+        ))}
+      </StyledLeftGroup>
 
-        <StyledRigthGroup>
-          {RIGHT_SIDE.map((elColRight, index) => (
-            <StyledRightColumn>
-              {elColRight.map((element) => (
-                <button
-                  key={element.number}
-                  className={element.category}
-                  onClick={() => handleSelectedElement(element)}
-                >
-                  {element.symbol}
-                </button>
-              ))}
-            </StyledRightColumn>
-          ))}
-        </StyledRigthGroup>
+      <StyledRigthGroup>
+        {RIGHT_SIDE.map((elColRight) => (
+          <StyledRightColumn>
+            {elColRight.map((element) => (
+              <Button atomData={element} />
+            ))}
+          </StyledRightColumn>
+        ))}
+      </StyledRigthGroup>
 
-        <StyledBottomGroup>
-          {BOTTOM.map((elCol, index) => (
-            <StyledBottomRow>
-              {elCol.map((element) => (
-                <button
-                  key={element.number}
-                  className={element.category}
-                  onClick={() => handleSelectedElement(element)}
-                >
-                  {element.symbol}
-                </button>
-              ))}
-            </StyledBottomRow>
-          ))}
-        </StyledBottomGroup>
-      </StyledPeriodicTable>
-    </>
+      <StyledBottomGroup>
+        {BOTTOM.map((elCol) => (
+          <StyledBottomRow>
+            {elCol.map((element) => (
+              <Button atomData={element} />
+            ))}
+          </StyledBottomRow>
+        ))}
+      </StyledBottomGroup>
+    </StyledPeriodicTable>
   );
 };
 

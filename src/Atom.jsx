@@ -1,19 +1,27 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import { useAtomicContext } from './context/ElementContext';
+import styled from 'styled-components';
+import AtomPlaceholder from './AtomPlaceholder';
 
-const Nucleus = () => {
+const Nucleus = ({ protons, neutrons }) => {
   const nucleusRef = useRef();
+  const particles = [];
 
-  const particles = [
-    { position: [0, 0, 0], color: 'red' },
-    { position: [0.3, 0.2, 0], color: 'gray' },
-    { position: [-0.3, -0.2, 0.1], color: 'red' },
-    { position: [0.1, -0.3, -0.2], color: 'gray' },
-    { position: [-0.2, 0.1, -0.3], color: 'red' },
-    { position: [0.2, -0.1, 0.3], color: 'gray' },
-  ];
+  for (let i = 0; i < protons; i++) {
+    particles.push({
+      position: [Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5],
+      color: 'red',
+    });
+  }
+
+  for (let i = 0; i < neutrons; i++) {
+    particles.push({
+      position: [Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5],
+      color: 'blue',
+    });
+  }
 
   return (
     <group ref={nucleusRef}>
@@ -27,50 +35,58 @@ const Nucleus = () => {
   );
 };
 
-const Electron = ({ radius, speed, angle, color }) => {
+const Electron = ({ radius, speed, angle, color, index }) => {
   const electronRef = useRef();
 
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * speed;
+    const t = clock.getElapsedTime() * speed + index / 10;
     electronRef.current.position.x = Math.cos(t + angle) * radius;
     electronRef.current.position.z = Math.sin(t + angle) * radius;
+    electronRef.current.position.y = Math.cos(t - angle) * radius;
   });
 
   return (
-    <mesh ref={electronRef} position={[radius, 0, 0]}>
+    <mesh ref={electronRef} position={[0, 0, 0]}>
       <sphereGeometry args={[0.1, 16, 16]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );
 };
 
-const LithiumAtom = () => {
+const Atom = () => {
+  const { atom } = useAtomicContext();
+
+  if (!Object.keys(atom).length) return <AtomPlaceholder />;
+
+  const { protons, neutrons, electrons } = atom;
+
   return (
-    <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[5, 5, 5]} intensity={1.5} />
-      <OrbitControls />
+    <StyledCanvas>
+      <Canvas camera={{ position: [0, 2, 5], fov: 60 }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[5, 5, 5]} intensity={1.5} />
+        <OrbitControls />
 
-      <Nucleus />
+        <Nucleus protons={protons} neutrons={neutrons} />
 
-      <Electron radius={1} speed={1} angle={1} color="blue" />
-      <Electron radius={1.5} speed={1.2} angle={Math.PI / 2} color="blue" />
-      <Electron radius={1.2} speed={1.5} angle={Math.PI} color="blue" />
-
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1, 0.02, 16, 100]} />
-        <meshBasicMaterial color="white" transparent opacity={0.5} />
-      </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.5, 0.02, 16, 100]} />
-        <meshBasicMaterial color="white" transparent opacity={0.5} />
-      </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.2, 0.02, 16, 100]} />
-        <meshBasicMaterial color="white" transparent opacity={0.5} />
-      </mesh>
-    </Canvas>
+        {[...Array(electrons)].map((_, index) => (
+          <Electron
+            key={index}
+            index={index}
+            radius={1 + Math.random()}
+            speed={1 + (index % Math.random()) * 0.5}
+            angle={index * 10}
+            color="yellow"
+          />
+        ))}
+      </Canvas>
+    </StyledCanvas>
   );
 };
 
-export default LithiumAtom;
+export default Atom;
+
+const StyledCanvas = styled.div`
+  height: 100%;
+  min-width: 50vh;
+`;
