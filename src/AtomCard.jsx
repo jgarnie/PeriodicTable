@@ -54,11 +54,18 @@ const StyledSummaryName = styled.div`
   text-align: center;
 `;
 
-const StyledTitle = styled.div`
+const StyledTitle = styled.h3`
   width: 100%;
   text-align: center;
 `;
 const StyledFooter = styled.div``;
+
+const radioactiveIsotopes = [
+  { protons: 55, neutrons: 82 },
+  { protons: 38, neutrons: 50 },
+  { protons: 92, neutrons: 143 },
+  { protons: 92, neutrons: 146 },
+];
 
 const AtomCard = () => {
   const [electronsChange, setElectronsChange] = useState(0);
@@ -71,6 +78,8 @@ const AtomCard = () => {
     if (originalAtom?.number && originalAtom.number === atom.number) {
       return;
     }
+    setNeutronsChange(0);
+    setElectronsChange(0);
     setOriginalAtom(atom);
   }, [atom]);
 
@@ -103,17 +112,31 @@ const AtomCard = () => {
   };
 
   const isRadioactive = () => {
+    if (
+      radioactiveIsotopes.some(
+        (isotope) =>
+          isotope.protons === atom.protons && isotope.neutrons === atom.neutrons
+      )
+    ) {
+      return true;
+    }
+    if (atom.protons === 1 && atom.neutrons === 0) {
+      return false;
+    }
     if (atom.protons > 83) {
       return true;
     }
     const stability = atom.neutrons / atom.protons;
     if (atom.protons > 20) {
-      if (stability > 1.5 || stability < 1.2) {
+      if (stability < 1.25 || stability > 1.45) {
         return true;
       }
       return false;
     }
-    if (stability > 1.1 || stability < 0.9) return true;
+
+    if (stability < 0.9 || stability > 1.15) {
+      return true;
+    }
     return false;
   };
 
@@ -122,11 +145,11 @@ const AtomCard = () => {
       <StyledHeader>
         <StyledSumary className={atom.category || 'nonmetal'}>
           <StyledSumaryHeader>
-            <div>{atom.number || 'XX'}</div>
-            <div>{atom.atomic_mass || 'XX'}</div>
+            <div>{atom.number || 0}</div>
+            <div>{atom.atomic_mass || 0}</div>
           </StyledSumaryHeader>
           <StyledSummarySymbol>
-            {atom.symbol || 'XX'}{' '}
+            {atom.symbol || 0}{' '}
             {electronsChange !== 0 && (
               <span>
                 {Math.abs(electronsChange)}
@@ -134,7 +157,7 @@ const AtomCard = () => {
               </span>
             )}
           </StyledSummarySymbol>
-          <StyledSummaryName>{atom.name || 'XX'}</StyledSummaryName>
+          <StyledSummaryName>{atom.name || 0}</StyledSummaryName>
         </StyledSumary>
         <StyledHeaderName>
           {electronsChange !== 0
@@ -143,7 +166,7 @@ const AtomCard = () => {
               : 'ion'
             : ''}
           <StyledTitleTop>
-            {atom.name || 'XX'}
+            {atom.name || 0}
             {neutronsChange !== 0 ? (
               <span>
                 -{originalAtom.protons + originalAtom.neutrons + neutronsChange}
@@ -152,7 +175,7 @@ const AtomCard = () => {
               ''
             )}
           </StyledTitleTop>
-          <div>{atom.category || 'XX'}</div>
+          <div>{atom.category || 0}</div>
         </StyledHeaderName>
         {isRadioactive() && <RadioactiveIcon />}
       </StyledHeader>
@@ -160,23 +183,23 @@ const AtomCard = () => {
       <StyledTitle>{atom.name || 'XX'}</StyledTitle>
       <StyledFooter>
         <div>
-          Mass: <b>{atom.atomic_mass || 'XX'}</b>
+          Mass: <b>{atom.atomic_mass || 0}</b>
         </div>
         <div>
-          Protons: <b>{atom.protons || 'XX'}</b>
+          Protons: <b>{atom.protons || 0}</b>
         </div>
         <div>
-          Neutrons: <b>{atom.neutrons || 'XX'}</b>
+          Neutrons: <b>{atom.neutrons || 0}</b>
           <button onClick={removeNeutron}>remove</button>
           <button onClick={addNeutron}>add</button>
         </div>
         <div>
-          Electrons: <b>{atom.electrons || 'XX'}</b>{' '}
+          Electrons: <b>{atom.electrons || 0}</b>{' '}
           <button onClick={removeElectron}>remove</button>
           <button onClick={addElectron}>add</button>
         </div>
         <div>
-          Electron Configuration: <b>{atom.electron_configuration || 'XX'}</b>{' '}
+          Electron Configuration: <b>{atom.electron_configuration || 0}</b>{' '}
         </div>
       </StyledFooter>
     </StyledCardWrapper>
