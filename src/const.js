@@ -990,3 +990,5 @@ export const BOTTOM = [
     },
   ],
 ];
+
+export const ALL_ATOMS = [BOTTOM, LEFT_SIDE, RIGHT_SIDE];

@@ -10,7 +10,7 @@ const StyledButton = styled.div`
   box-shadow: 1px 0 0 0 #fff, 0 1px 0 0 #fff, 1px 1px 0 0 #fff,
     1px 0 0 0 #fff inset, 0 1px 0 0 #fff inset;
   transition: transform 0.2s ease-in-out;
-
+  color: white;
   &:hover {
     transform: scale(1.5);
   }

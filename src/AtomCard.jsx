@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Atom from './Atom';
 import { useAtomicContext } from './context/ElementContext';
 import RadioactiveIcon from './RadioactiveIcon';
+import { ALL_ATOMS } from './const';
 
 const StyledCardWrapper = styled.div`
   padding: 20px;
@@ -111,6 +112,35 @@ const AtomCard = () => {
     setNeutronsChange(neutronsChange + 1);
   };
 
+  const handleProtonChange = (operand) => {
+    let newAtomicNumber;
+    if (operand === 'add') {
+      newAtomicNumber = atom.protons + 1;
+    } else {
+      newAtomicNumber = atom.protons - 1;
+    }
+    const newAtom = ALL_ATOMS.map((subArray) =>
+      subArray
+        .map((el) =>
+          el.find((finallyAtomBro) => finallyAtomBro.number === newAtomicNumber)
+        )
+        .filter(Boolean)
+    ).filter((subArray) => subArray.length > 0);
+    console.log(newAtom[0][0]);
+    const atomData = newAtom[0][0];
+
+    const protons = atomData.number;
+    const neutrons = atom.neutrons;
+    const electrons = atom.electrons;
+    const particleInfo = {
+      protons,
+      neutrons,
+      electrons,
+    };
+    setAtom({ ...atomData, ...particleInfo });
+    setOriginalAtom({ ...atomData, ...particleInfo });
+  };
+
   const isRadioactive = () => {
     if (
       radioactiveIsotopes.some(
@@ -120,6 +150,11 @@ const AtomCard = () => {
     ) {
       return true;
     }
+
+    if (atom.protons < 83 && neutronsChange === 0) {
+      return false;
+    }
+
     if (atom.protons === 1 && atom.neutrons === 0) {
       return false;
     }
@@ -167,13 +202,19 @@ const AtomCard = () => {
             : ''}
           <StyledTitleTop>
             {atom.name || 0}
-            {neutronsChange !== 0 ? (
+            {
               <span>
-                -{originalAtom.protons + originalAtom.neutrons + neutronsChange}
+                {!isNaN(
+                  originalAtom.protons + originalAtom.neutrons + neutronsChange
+                )
+                  ? `-${
+                      originalAtom.protons +
+                      originalAtom.neutrons +
+                      neutronsChange
+                    }`
+                  : ''}
               </span>
-            ) : (
-              ''
-            )}
+            }
           </StyledTitleTop>
           <div>{atom.category || 0}</div>
         </StyledHeaderName>
@@ -186,7 +227,12 @@ const AtomCard = () => {
           Mass: <b>{atom.atomic_mass || 0}</b>
         </div>
         <div>
-          Protons: <b>{atom.protons || 0}</b>
+          Protons:{' '}
+          <b>
+            {atom.protons || 0}
+            <button onClick={() => handleProtonChange('delete')}>remove</button>
+            <button onClick={() => handleProtonChange('add')}>add</button>
+          </b>
         </div>
         <div>
           Neutrons: <b>{atom.neutrons || 0}</b>
